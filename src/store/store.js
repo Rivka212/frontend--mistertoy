@@ -1,27 +1,12 @@
-import { toyService } from "../services/toy.service.js"
 import { combineReducers, compose, legacy_createStore as createStore } from "redux"
-// const {  } = Redux
+import { toyReducer } from "./reducers/toy.reducer.js"
 
-export const SET_TOYS = 'SET_TOYS'
-
-
-
-const initialState = {
-    toys: [],
-
-}
+const rootReducer = combineReducers({
+    toyModule: toyReducer
+})
 
 
-function appReducer(state = initialState, action = {}) {
-    switch (action.type) {
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+export const store = createStore(rootReducer, composeEnhancers())
 
-        case SET_TOYS:
-            return { ...state, todos: action.todos }
-        default:
-            return state
-    }
-}
-
-
-export const store = createStore(appReducer)
 window.gStore = store
