@@ -22,7 +22,7 @@ export function ToyIndex() {
 
     return (
         <div>
-            <h3>MISTER TOY</h3>
+            <h3>OUR'S TOYS</h3>
             <main>
                 {!isLoading ? <ToyList toys={toys} /> : <div>Loading...</div>
                 }

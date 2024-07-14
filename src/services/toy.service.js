@@ -42,7 +42,7 @@ function _createToys() {
     if (!toys || toys.length === 0) {
         toys = [
             _createToy('Talking Doll', 100, ['Doll', 'Battery Powered', 'Baby'], 1631031801011, true),
-            _createToy('Puzzle The Little Prince', 150, ['Puzzle', 'Box game'], 'the-littel-prince'),
+            _createToy('Princess Puzzle', 150, ['Puzzle', 'Box game'], 'the-littel-prince'),
             _createToy('Balloons', 50, ['Art'], 1631031801011, true),
             _createToy('Bicycle', 400, ['On wheels', 'Outdoor'], 1631031801011, true),
             _createToy('Marker pens', 20, ['Art'], 1631031801011, false),
