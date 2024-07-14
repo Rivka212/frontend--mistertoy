@@ -7,6 +7,8 @@ import { HomePage } from './pages/HomePage.jsx'
 import { AboutUs } from './pages/AboutUs.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { store } from './store/store.js'
+import { Provider } from 'react-redux'
+
 
 import './assets/style/main.css'
 
@@ -24,7 +26,6 @@ export function App() {
                             <Route element={<ToyIndex />} path="/Toy" />
                         </Routes>
                     </main>
-                    <AppFooter />
                 </section>
             </Router>
         </Provider>
