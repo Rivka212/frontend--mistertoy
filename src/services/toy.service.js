@@ -11,6 +11,7 @@ export const toyService = {
     getById,
     save,
     remove,
+    getEmptyToy,
 }
 
 
@@ -33,6 +34,16 @@ function save(toy) {
         return storageService.put(STORAGE_KEY, toy)
     } else {
         return storageService.post(STORAGE_KEY, toy)
+    }
+}
+
+function getEmptyToy() {
+    return {
+        name: 'toy',
+        price: 100,
+        labels: [],
+        createdAt: Date.now(),
+        inStock: false,
     }
 }
 
