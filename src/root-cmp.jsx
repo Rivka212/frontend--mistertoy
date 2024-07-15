@@ -8,11 +8,13 @@ import { AboutUs } from './pages/AboutUs.jsx'
 import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
+import { UserMsg } from './cmps/UserMsg.jsx'
 import { store } from './store/store.js'
 import { Provider } from 'react-redux'
 
 
 import './assets/style/main.css'
+
 
 export function App() {
 
@@ -30,6 +32,7 @@ export function App() {
                             <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
                             <Route element={<ToyDetails />} path="/toy/:toyId" />
                         </Routes>
+                        <UserMsg/>
                     </main>
                 </section>
             </Router>
