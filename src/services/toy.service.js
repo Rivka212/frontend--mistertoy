@@ -12,11 +12,22 @@ export const toyService = {
     save,
     remove,
     getEmptyToy,
+    getDefaultFilter,
 }
+
 
 
 function query(filterBy = {}) {
     return storageService.query(STORAGE_KEY)
+        .then(toys => {
+            if (!filterBy.name) filterBy.name = ''
+            if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
+            const regExp = new RegExp(filterBy.name, 'i')
+            return toys.filter(toy =>
+                regExp.test(toy.name) &&
+                toy.price <= filterBy.maxPrice
+            )
+        })
 }
 
 function getById(toyId) {
@@ -45,6 +56,10 @@ function getEmptyToy() {
         createdAt: Date.now(),
         inStock: false,
     }
+}
+
+function getDefaultFilter() {
+    return { name: '', maxPrice: '' }
 }
 
 
