@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 import { utilService } from "../services/util.service.js"
 import { useEffectOnUpdate } from "../hooks/useEffectOnUpdate.js"
+import { toyService } from "../services/toy.service.js"
 
 export function ToyFilter({ filterBy, onSetFilter }) {
 
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const toyLabels = toyService.getToyLabels()
+
     onSetFilter = useRef(utilService.debounce(onSetFilter, 300))
 
     useEffectOnUpdate(() => {
@@ -13,43 +16,62 @@ export function ToyFilter({ filterBy, onSetFilter }) {
 
     function handleChange({ target }) {
         let { value, name: field, type } = target
-        if (type === "checkbox") value = target.checked 
-        else if (type === 'number' ? +value : value)
-            console.log(value);
-        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: value }))
+        if (type === 'select-multiple') {
+            value = Array.from(target.selectedOptions, option => option.value || [])
+        }
+        value = type === 'number' ? +value || '' : value
+        setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: field === 'sortDir' ? -prevFilter.sortDir : value }))
     }
-
 
     return (
         <section className="toy-filter full main-layout">
             <h2>Toys Filter</h2>
             <form >
-                <label htmlFor="name">Name:</label>
-                <input type="text"
-                    id="name"
-                    name="name"
-                    placeholder="By name"
-                    value={filterByToEdit.txt}
-                    onChange={handleChange}
-                />
+                <div>
+                    <label htmlFor="txt"></label>
+                    <input type="text"
+                        id="txt"
+                        name="txt"
+                        placeholder="Search"
+                        value={filterByToEdit.txt}
+                        onChange={handleChange}
+                    />
+                </div>
 
-                <label for="inStock"> In Stock</label>
-                <input type="checkbox" id="inStock" name="inStock" value="inStock"
-                    checked={filterByToEdit.inStock} onChange={handleChange} />
+                <div>
+                    <label htmlFor="inStock"></label>
+                    <select name="inStock" id="inStock" onChange={handleChange}>
+                        <option value="">All</option>
+                        <option value="In Stock">In Stock</option>
+                        <option value="Not in Stock">Not in Stock</option>
+                    </select>
+                </div>
 
-
-
+                <div>
+                    <label htmlFor="labels"></label>
+                    <select name="labels" id="labels" onChange={handleChange} multiple>
+                        {toyLabels.map(label => (
+                            <option key={label} value={label}
+                            >{label}</option>))}
+                    </select>
+                </div>
+                <div>
+                    <label htmlFor="sortBy"></label>
+                    <select name="sortBy" id="sortBy" value={filterByToEdit.sortBy} onChange={handleChange}>
+                        <option value="name">Name</option>
+                        <option value="price">Price</option>
+                        <option value="createdAt">Date</option>
+                    </select>
+                    <label> Descending
+                        <input
+                            type="checkbox"
+                            name="sortDir"
+                            checked={filterByToEdit.sortDir < 0}
+                            onChange={handleChange}
+                        />
+                    </label>
+                </div>
             </form>
-
-        </section>
+        </section >
     )
 }
-
-{/* <label htmlFor="maxPrice">Max price:</label>
-                <input type="number"
-                    id="maxPrice"
-                    name="maxPrice"
-                    placeholder="By max price"
-                    value={filterByToEdit.maxPrice || ''}
-                    onChange={handleChange}
-                /> */}

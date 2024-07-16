@@ -4,6 +4,10 @@ import { utilService } from './util.service.js'
 
 const STORAGE_KEY = 'toyDB'
 let toys = _createToys()
+const PAGE_SIZE = 4
+
+const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
+    'Outdoor', 'Battery Powered']
 
 
 export const toyService = {
@@ -13,20 +17,38 @@ export const toyService = {
     remove,
     getEmptyToy,
     getDefaultFilter,
+    getToyLabels,
 }
 
 
-
 function query(filterBy = {}) {
+    console.log(filterBy);
     return storageService.query(STORAGE_KEY)
         .then(toys => {
-            if (!filterBy.name) filterBy.name = ''
-            if (!filterBy.maxPrice) filterBy.maxPrice = Infinity
-            const regExp = new RegExp(filterBy.name, 'i')
-            return toys.filter(toy =>
-                regExp.test(toy.name) &&
-                toy.price <= filterBy.maxPrice
-            )
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                toys = toys.filter(toy => regExp.test(toy.name))
+            }
+
+            if (filterBy.inStock) {
+                console.log(filterBy.inStock);
+                toys = toys.filter(toy => toy.inStock === filterBy.inStock)
+            }
+            if (filterBy.labels?.length) {
+                toys = toys.filter(toy => filterBy.labels.every(label => toy.labels.includes(label)))
+            }
+            if (filterBy.sortBy) {
+                if (filterBy.sortBy === 'name') {
+                    toys = toys.sort((toy1, toy2) => toy1.name.localeCompare(toy2.name) * filterBy.sortDir)
+                } else if (filterBy.sortBy === 'price' || 'createdAt') {
+                    toys = toys.sort((toy1, toy2) => (toy1[filterBy.sortBy] - toy2[filterBy.sortBy]) * filterBy.sortDir)
+                }
+            }
+            if (filterBy.pageIdx) {
+                const startIdx = filterBy.pageIdx * PAGE_SIZE
+                toys = toys.slice(startIdx, startIdx + PAGE_SIZE)
+            }
+            return toys
         })
 }
 
@@ -59,9 +81,19 @@ function getEmptyToy() {
 }
 
 function getDefaultFilter() {
-    return { name: '', maxPrice: '' }
+    return {
+        txt: '',
+        labels: [],
+        inStock: null,
+        sortBy: '',
+        sortDir: 1,
+        pageIdx: 0,
+    }
 }
 
+function getToyLabels() {
+    return [...labels]
+}
 
 function _createToys() {
     var toys = utilService.loadFromStorage('toysDB')
@@ -98,10 +130,6 @@ function _createToy(name, price, labels = [], createdAt, inStock) {
 function _saveToys(prop) {
     utilService.saveToStorage(STORAGE_KEY, prop)
 }
-
-
-// const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle',
-//     'Outdoor', 'Battery Powered']
 
 
 // const toy = {
