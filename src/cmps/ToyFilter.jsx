@@ -42,8 +42,8 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                     <label htmlFor="inStock"></label>
                     <select name="inStock" id="inStock" onChange={handleChange}>
                         <option value="">All</option>
-                        <option value="In Stock">In Stock</option>
-                        <option value="Not in Stock">Not in Stock</option>
+                        <option value="true">In Stock</option>
+                        <option value="false">Not in Stock</option>
                     </select>
                 </div>
 
