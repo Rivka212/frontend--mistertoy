@@ -16,6 +16,19 @@ export function loadToys() {
         })
 }
 
+// export function loadToysChart(){
+//     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+//     return toyService.query(toys)
+//         .then(toys => store.dispatch({ type: SET_TOYS, toys }))
+//         .catch(err => {
+//             console.log('toy action -> Cannot load toys', err)
+//             throw err
+//         })
+//         .finally(() => {
+//             store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+//         })
+// }
+
 export function removeToy(toyId) {
     return toyService.remove(toyId)
         .then(() => {
