@@ -12,4 +12,4 @@ export function ToyList({ toys, onRemoveToy }) {
                 </li>)}
         </ul>
     )
-}
+}   
