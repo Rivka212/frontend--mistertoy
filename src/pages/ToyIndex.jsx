@@ -14,10 +14,12 @@ export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
-
+    // const [toyLabels, setToyLabels] = useState()
 
     useEffect(() => {
         loadToys()
+            // .then(() => toyService.getToyLabelsRoute())
+            // .then(labels => setToyLabels(labels))
             .catch(err => {
                 showErrorMsg('Cannot load toys!')
             })

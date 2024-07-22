@@ -17,13 +17,19 @@ export const toyService = {
     getEmptyToy,
     getDefaultFilter,
     getToyLabels,
+    getToyLabelCounts,
+    getToyLabelsRoute,
 }
+
+
 
 
 function query(filterBy = {}) {
     console.log(filterBy);
     return httpService.get(BASE_URL, filterBy)
 }
+
+
 
 function getById(toyId) {
     return httpService.get(BASE_URL + toyId)
@@ -42,6 +48,14 @@ function save(toy) {
     }
 }
 
+function getToyLabelsRoute(){
+    return httpService.get(BASE_URL + 'labels')
+}
+
+function getToyLabelCounts() {
+    return httpService.get(BASE_URL + 'labels/count')
+}
+
 function getEmptyToy() {
     return {
         name: 'toy',
@@ -56,12 +70,13 @@ function getDefaultFilter() {
     return {
         txt: '',
         labels: [],
-        inStock: true,
+        inStock: null,
         sortBy: '',
         sortDir: 1,
         pageIdx: 0,
     }
 }
+
 
 function getToyLabels() {
     return [...labels]
