@@ -25,16 +25,8 @@ export function LineChart() {
 
     const options = {
         responsive: true,
-        plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Prices of Toys',
-            },
-        },
-    };
+        plugins: { legend: { position: 'top' } }
+    }
 
     const labels = ['1995', '2000', '2005', '2010', '2015', '2020', '2025']
 

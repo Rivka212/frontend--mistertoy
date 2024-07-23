@@ -36,6 +36,7 @@ export function Dashboard() {
         <PieChart labelCounts={labelCounts} />
         <h3>Prices per label:</h3>
         <BarChart labelCounts={labelCounts}/>
+        <h3>Prices of Toys: </h3>
         <LineChart />
     </>)
 }
