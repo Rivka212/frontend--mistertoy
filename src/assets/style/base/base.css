@@ -28,4 +28,7 @@
     text-decoration: none;
     color: unset;
   }
+  img{
+    max-width: 100%;
+  }
   

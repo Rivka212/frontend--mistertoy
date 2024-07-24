@@ -6,12 +6,3 @@
     gap: 0.9em;
     margin-block:0.6em ;
 }
-
-.toy-preview {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background-color: var(--clr2bg-light);
-    padding: 0.7em;
-    border-radius: 0.5em;
-}

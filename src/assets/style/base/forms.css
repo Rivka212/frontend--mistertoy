@@ -16,3 +16,13 @@ input:focus {
     background-color: var(--clr1bg);
     transition: background-color 1s;
 }
+
+.edit-form{
+    display: flex;
+    margin: auto;
+    flex-direction: column;
+    width: 60%;
+    align-items: center;
+    gap: 10px;
+}
+
