@@ -1,0 +1,67 @@
+.toy-filter {
+    // display: flex;
+    // justify-content: center;
+    background-color: $clr2bg-light;
+    border-radius: 5px;
+    margin-bottom: 2em;
+    padding: 7px;
+}
+
+// .toy-filter .form {
+//     background-color: aqua;
+//    display: flex;
+//    justify-content: center;
+//    align-items: center;
+
+// }
+
+
+.toy-filter {
+    select {
+        height: 3.2em;
+        
+        background-color: $clr3bg-light;
+        color: $gray3;
+        margin-left: 1.1em;
+        margin-right: 1.1em;
+        border-radius: 5px;
+        border-color: $gray2;
+    }
+
+    select:last-of-type{
+        // margin-bottom: 6em;
+
+    }
+
+}
+
+
+
+.toy-filter .descending {
+    height: 2.7em;
+}
+
+// .toy-filter .descending input{
+//     margin-left: 2em;
+//     background-color: $clr3bg-light;
+// }
+
+
+.toy-filter input {
+    height: 0.7em;
+    background-color: $clr3bg-light;
+
+    // text-align: center;
+}
+
+.toy-filter .inputLabel {
+    // margin-left: 2em;
+
+}
+
+.toy-filter .select-filterBy {
+    height: 2.7em;
+    // margin-top: 2px;
+    background-color: $clr3bg-light;
+
+}

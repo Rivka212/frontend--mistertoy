@@ -25,13 +25,14 @@ import {
 export function ToyEdit() {
     const navigate = useNavigate()
     const [toyToEdit, setToyToEdit] = useState(toyService.getEmptyToy())
+    const [labels, setLabels] = useState([])
     const { toyId } = useParams()
 
     useEffect(() => {
         if (toyId) loadToy()
+        loadToyLabels()
     }, [])
 
-    console.log(toyToEdit);
 
     function loadToy() {
         toyService.getById(toyId)
@@ -42,14 +43,20 @@ export function ToyEdit() {
             })
     }
 
-    function handleChange({ target }) {
-        let { value, type, name: field } = target
-        value = type === 'number' ? +value : value
-        setToyToEdit((prevtoy) => ({ ...prevtoy, [field]: value }))
+    function loadToyLabels() {
+        return toyService.getToyLabelsRoute()
+            .then(labels => {
+                setLabels(labels)
+            })
+            .catch(err => {
+                console.log('Had issued in toy edit:', err)
+                navigate('/toy')
+                showErrorMsg('Toy not found!')
+            })
     }
+    console.log(labels)
 
     function onSaveToy(toyToEdit, { setSubmitting }) {
-        ev.preventDefault()
         if (!toyToEdit.price) toyToEdit.price = 100
         saveToy(toyToEdit)
             .then(() => {
@@ -60,7 +67,11 @@ export function ToyEdit() {
                 console.log('Had issues in toy details', err)
                 showErrorMsg('Had issues in toy details')
             })
+            .finally(() => {
+                setSubmitting(false)
+            })
     }
+
     const toySchema = Yup.object().shape({
         name: Yup.string()
             .min(2, 'Too Short!')
@@ -77,92 +88,83 @@ export function ToyEdit() {
             <h2>{toyToEdit._id ? 'Edit' : 'Add'} toy</h2>
             <div>
                 <Formik
+                    enableReinitialize
                     initialValues={toyToEdit}
                     validationSchema={toySchema}
                     onSubmit={onSaveToy}
                 >
                     {({ errors, touched, values: toyToEdit, handleChange }) => (
-                        <Form>
+                        <Form className="edit-form">
                             <Field name="name"
                                 label="Name"
                                 as={TextField}
                                 variant="outlined" required
-                                error={errors.name && touched.name}
-                                helperText={touched.name && errors.name}
-                                placeholder="Enter name..."
+                                // error={errors.name && touched.name}
+                                // helperText={touched.name && errors.name}
                                 value={toyToEdit.name}
                                 onChange={handleChange}
                             />
 
                             <Field name="price"
-                                 label="Price"
+                                label="Price"
                                 as={TextField}
                                 variant="outlined" required
-                                error={errors.price && touched.price}
-                                helperText={touched.price && errors.price}
-                                placeholder="Enter price..."
+                                // error={errors.price && touched.price}
+                                // helperText={touched.price && errors.price}
                                 value={toyToEdit.price}
                                 onChange={handleChange}
                             />
-                            <Field name="labels"
-                                 label="labels"
-                                as={TextField}
-                                variant="outlined" required
-                                error={errors.labels && touched.labels}
-                                helperText={touched.labels && errors.labels}
-                                placeholder="Enter labels..."
-                                value={toyToEdit.labels}
-                                onChange={handleChange}
-                            />
-                             {toyToEdit._id &&
                             <FormControl margin="normal">
-                                <Field
-                                    as={FormControlLabel}
-                                    control={<Checkbox />}
-                                    label="In Stock"
-                                    variant="outlined"
-                                    name="inStock"
-                                    id="inStock"
-                                    margin="normal"
-                                    error={touched.inStock && !!errors.inStock}
-                                    helperText={touched.inStock && errors.inStock}
+                                <InputLabel id="labels-label">Labels</InputLabel>
+                                <Select
+                                    multiple
+                                    label="Labels"
+                                    labelId="labels-label"
+                                    id="labels"
+                                    name="labels"
+                                    value={toyToEdit.labels}
                                     onChange={handleChange}
-                                    value={toyToEdit.inStock}
-                                    checked={toyToEdit.inStock}
-                                />
+                                    renderValue={selected => selected.join(', ')}
+                                    style={{ minWidth: '250px' }}
+                                >
+                                    {/* {labels.map(label => {
+                                        <MenuItem key={label} value={label}>
+                                            <Checkbox checked={toyToEdit.labels.includes(label)} />
+                                            <ListItemText primary={label} />
+                                        </MenuItem>
+                                    })} */}
+                                </Select>
                             </FormControl>
-                        }
-                            <button type="submit">{toyToEdit._id ? 'Save' : 'Add'}</button>
+                            {toyToEdit._id &&
+                                <FormControl margin="normal">
+                                    <Field
+                                        as={FormControlLabel}
+                                        control={<Checkbox />}
+                                        label="In Stock"
+                                        variant="outlined"
+                                        name="inStock"
+                                        id="inStock"
+                                        margin="normal"
+                                        // error={touched.inStock && !!errors.inStock}
+                                        // helperText={touched.inStock && errors.inStock}
+                                        onChange={handleChange}
+                                        value={toyToEdit.inStock}
+                                        checked={toyToEdit.inStock}
+                                    />
+                                </FormControl>
+                            }
+                            <Button type="submit" variant="contained" color="primary">
+                                {toyToEdit._id ? 'Save' : 'Add'}
+                            </Button>
+                            {/* <Button type="submit">{toyToEdit._id ? 'Save' : 'Add'}</Button> */}
                         </Form>
                     )}
                 </Formik>
             </div>
+            <div>
+                <button><Link to="/toy">Cancel</Link></button>
+            </div>
 
-{/* 
-
-            <form onSubmit={onSaveToy} >
-                <label htmlFor="name">Name : </label>
-                <input type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Enter name..."
-                    value={toyToEdit.name}
-                    onChange={handleChange}
-                />
-                <label htmlFor="price">Price : </label>
-                <input type="number"
-                    name="price"
-                    id="price"
-                    placeholder="Enter price"
-                    value={toyToEdit.price}
-                    onChange={handleChange}
-                /> */}
-
-                <div>
-                    {/* <button>{toyToEdit._id ? 'Save' : 'Add'}</button> */}
-                    <Link to="/toy">Cancel</Link>
-                </div>
-            {/* </form> */}
         </section>
     )
 }

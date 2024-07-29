@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react"
 import { utilService } from "../services/util.service.js"
 import { useEffectOnUpdate } from "../hooks/useEffectOnUpdate.js"
 import { toyService } from "../services/toy.service.js"
+import * as React from 'react';
+import { Box, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import { Form } from "react-router-dom";
+
 
 export function ToyFilter({ filterBy, onSetFilter }) {
 
@@ -23,47 +27,79 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         setFilterByToEdit((prevFilter) => ({ ...prevFilter, [field]: field === 'sortDir' ? -prevFilter.sortDir : value }))
     }
 
+
+
     return (
         <section className="toy-filter full main-layout">
             <h2>Toys Filter</h2>
             <form >
-                <div>
-                    <label htmlFor="txt"></label>
-                    <input type="text"
+                <div className="form">
+                    <TextField 
                         id="txt"
+                        label="Search"
+                        variant="outlined"
                         name="txt"
-                        placeholder="Search"
                         value={filterByToEdit.txt}
                         onChange={handleChange}
-                    />
-                </div>
+                        sx={{ width: '20ch', height: '8ch' }} />
 
-                <div>
+                    {/* <FormControl sx={{ m: 1, minWidth: 100, minHeight: 1 }}>
+                        <InputLabel id="inStock-label">In Stock</InputLabel>
+                        <Select
+                            labelId="inStock-label"
+                            id="inStock"
+                            // name="inStock"
+                            value={filterByToEdit.inStock}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value="">All</MenuItem>
+                            <MenuItem value="true">In Stock</MenuItem>
+                            <MenuItem value="false">Not in Stock</MenuItem>
+                        </Select>
+                    </FormControl> */}
                     <label htmlFor="inStock"></label>
                     <select name="inStock" id="inStock" onChange={handleChange}>
                         <option value="">All</option>
                         <option value="true">In Stock</option>
                         <option value="false">Not in Stock</option>
                     </select>
-                </div>
 
-                <div>
-                    <label htmlFor="labels"></label>
-                    <select name="labels" id="labels" onChange={handleChange} multiple>
-                        {toyLabels.map(label => (
-                            <option key={label} value={label}
-                            >{label}</option>))}
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="sortBy"></label>
-                    <select name="sortBy" id="sortBy" value={filterByToEdit.sortBy} onChange={handleChange}>
-                        <option value="name">Name</option>
-                        <option value="price">Price</option>
-                        <option value="createdAt">Date</option>
-                    </select>
+                    <FormControl sx={{ minWidth: 100, minHeight: 1, height: '8ch' }}>
+                        <InputLabel id="labels-label">Labels</InputLabel>
+                        <Select className="select-filterBy"
+                            labelId="labels-label"
+                            id="labels"
+                            name="labels"
+                            multiple
+                            value={filterByToEdit.labels}
+                            onChange={handleChange}
+                            renderValue={selected => selected.join(', ')}
+                        >
+                            {toyLabels.map(label => (
+                                <MenuItem key={label} value={label}>
+                                    {label}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+
+                    <FormControl sx={{ minWidth: 100, minHeight: '40px', height: '8ch' }}>
+                        <InputLabel className="inputLabel" id="sortBy-label">Sort By</InputLabel>
+                        <Select className="select-filterBy"
+                            labelId="sortBy-label"
+                            id="sortBy"
+                            name="sortBy"
+                            value={filterByToEdit.sortBy}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value="name">Name</MenuItem>
+                            <MenuItem value="price">Price</MenuItem>
+                            <MenuItem value="createdAt">Date</MenuItem>
+                        </Select>
+                    </FormControl>
+
                     <label> Descending
-                        <input
+                        <input className="descending"
                             type="checkbox"
                             name="sortDir"
                             checked={filterByToEdit.sortDir < 0}
@@ -75,3 +111,4 @@ export function ToyFilter({ filterBy, onSetFilter }) {
         </section >
     )
 }
+

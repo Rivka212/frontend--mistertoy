@@ -21,11 +21,7 @@ export const toyService = {
     getToyLabelsRoute,
 }
 
-
-
-
 function query(filterBy = {}) {
-    console.log(filterBy);
     return httpService.get(BASE_URL, filterBy)
 }
 
@@ -48,7 +44,7 @@ function save(toy) {
     }
 }
 
-function getToyLabelsRoute(){
+function getToyLabelsRoute() {
     return httpService.get(BASE_URL + 'labels')
 }
 
@@ -60,7 +56,7 @@ function getEmptyToy() {
     return {
         name: 'toy',
         price: 100,
-        labels: [],
+        labels: _getRandomLabels(),
         createdAt: Date.now(),
         inStock: true,
     }
@@ -83,4 +79,13 @@ function getToyLabels() {
 }
 
 
+function _getRandomLabels() {
+    const labelsCopy = [...labels]
+    const randomLabels = []
+    for (let i = 0; i < 2; i++) {
+        const randomIdx = Math.floor(Math.random() * labelsCopy.length)
+        randomLabels.push(labelsCopy.splice(randomIdx, 1)[0])
+    }
+    return randomLabels
+}
 

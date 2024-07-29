@@ -14,7 +14,8 @@ import { store } from './store/store.js'
 import { Provider } from 'react-redux'
 
 
-import './assets/style/main.css'
+import './assets/style/main.scss'
+// import './styles/main.scss'
 
 
 export function App() {

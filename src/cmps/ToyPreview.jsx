@@ -23,9 +23,10 @@ export function ToyPreview({ toy }) {
             <h4>Price: <span>${toy.price}</span></h4>
             {toy.inStock === true ? <h4 style={{ color: 'blue' }}>In Stock</h4> :
                 <h4 style={{ color: 'red' }}> Out of stock</h4>}
-
-            <button> <Link to={`/toy/edit/${toy._id}`}>Edit</Link></button>
-            <button> <Link to={`/toy/${toy._id}`}>Details</Link></button>
+            <section className="btn-action-group">
+                <button> <Link to={`/toy/edit/${toy._id}`}>Edit</Link></button>
+                <button> <Link to={`/toy/${toy._id}`}>Details</Link></button>
+            </section>
         </article>
     )
 }

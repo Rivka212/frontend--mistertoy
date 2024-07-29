@@ -66,14 +66,12 @@ export function BarChart({ labelCounts = {} }) {
             ],
         }
 
-        console.log(labelCounts);
         const dataInStock = []
         const dataTotal = [] 
         const labels = Object.keys(labelCounts)
 
         labels.forEach(label => {
             const labelData = labelCounts[label]
-            console.log(labelData);
             const labelInStockPercent = labelData.inStock / labelData.total * 100
             dataInStock.push(labelInStockPercent)
             dataTotal.push(100 - labelInStockPercent)
@@ -81,7 +79,6 @@ export function BarChart({ labelCounts = {} }) {
         data.labels = labels
         data.datasets[0].data = dataInStock
         data.datasets[1].data = dataTotal
-console.log(data);
         return data
     }
     const barData = getData(labelCounts)

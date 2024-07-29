@@ -10,16 +10,12 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tool
 
 export function PieChart({ labelCounts = {} }) {
 
-
-    console.log(labelCounts);
     function getData(labelCounts) {
         const data = {
-            // labels: labelCounts.map(labelCount => labelCount.label),
             labels: Object.keys(labelCounts),
             datasets: [
                 {
                     label: '# of Toys',
-                    // data: labelCounts.map(labelCount => labelCount.count),
                     data: Object.values(labelCounts).map(labelData => labelData.total),
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
@@ -53,6 +49,7 @@ export function PieChart({ labelCounts = {} }) {
     const pieData = getData(labelCounts)
 
     return (
-        <Pie data={pieData} />
+        <Pie data={pieData}/>
     )
 }
+
