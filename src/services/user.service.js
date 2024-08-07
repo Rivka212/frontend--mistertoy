@@ -12,15 +12,20 @@ export const userService = {
     logout,
     signup,
     getById,
-    query,
+    // query,
+    getUsers,
     getEmptyCredentials,
     save,
     remove
 }
 
 
-function query(filterBy = {}) {
-    return httpService.get(BASE_URL, filterBy)
+// function query(filterBy = {}) {
+//     return httpService.get(BASE_URL, filterBy)
+// }
+
+function getUsers() {
+	return httpService.get(BASE_URL)
 }
 
 function getById(userId) {
@@ -57,7 +62,7 @@ function getLoggedinUser() {
 }
 
 function _saveLocalUser(user) {
-    user = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl, score: user.score, isAdmin: user.isAdmin }
+    user = { _id: user._id, fullname: user.fullname, isAdmin: user.isAdmin }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user
 }
@@ -67,6 +72,7 @@ function getEmptyCredentials() {
         fullname: '',
         username: '',
         password: '',
+        isAdmin: false,
     }
 }
 

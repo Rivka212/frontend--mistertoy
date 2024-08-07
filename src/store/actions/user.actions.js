@@ -1,7 +1,30 @@
 import { utilService } from '../../services/util.service.js'
 import { userService } from '../../services/user.service.js'
-import { UPDATE_USER, SET_USER } from '../reducers/user.reducer.js'
+import { SET_IS_LOADING } from '../reducers/system.reducer.js'
+import { UPDATE_USER, SET_USER, REMOVE_USER, SET_USERS } from '../reducers/user.reducer.js'
 import { store } from "../store.js"
+
+export async function loadUsers() {
+    try {
+    store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+const users = await userService.getUsers()
+        store.dispatch({ type: SET_USERS, users })
+    } catch (err) {
+        console.log('UserActions: err in loadUsers', err)
+    } finally {
+            store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+}
+}
+
+
+export async function removeUser(userId) {
+    try {
+        await userService.remove(userId)
+        store.dispatch({ type: REMOVE_USER, userId })
+    } catch (err) {
+        console.log('UserActions: err in removeUser', err)
+    }
+}
 
 export async function signup(credentials) {
     try {
