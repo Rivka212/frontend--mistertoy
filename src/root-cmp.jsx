@@ -13,6 +13,10 @@ import { UserMsg } from './cmps/UserMsg.jsx'
 import { store } from './store/store.js'
 import { Provider } from 'react-redux'
 
+import { LoginSignup } from './pages/LoginSignup.jsx'
+import { Login } from './pages/Login.jsx'
+import { Signup } from './pages/Signup.jsx'
+
 
 import './assets/style/main.scss'
 // import './styles/main.scss'
@@ -34,6 +38,10 @@ export function App() {
                             <Route element={<ToyEdit />} path="/toy/edit" />
                             <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
                             <Route element={<ToyDetails />} path="/toy/:toyId" />
+                            <Route element={<LoginSignup />} path="login" >
+                                <Route index element={<Login />} />
+                                <Route element={<Signup />} path="signup" />
+                            </Route>
                         </Routes>
                         <UserMsg />
                     </main>

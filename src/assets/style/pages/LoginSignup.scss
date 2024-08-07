@@ -1,0 +1,66 @@
+.login-form,
+.signup-form {
+	display: grid;
+	width: min(80%, 300px);
+	margin: auto;
+
+	padding: 1em;
+	background-color: $clr2bg-light;
+	border-radius: 5px;
+}
+
+.login-form {
+	select{
+		width: 70%;
+		height: 25px;
+		border-radius: 5px;
+		justify-self: center;
+	}
+
+	button{
+		width: 70%;
+		justify-self: center;
+	}
+}
+
+.signup-form {
+	input {
+		width: 100%;
+	}
+
+    .admin-toggle {
+        display: flex;
+        align-items: center;
+        justify-self: start;
+
+        span {
+            font-size: .8em;
+        }
+    }
+}
+
+.login-page nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 2em;
+
+	margin-block: 100px 0.5em;
+
+	a {
+		font-size: 0.8em;
+		color: $clr2;
+
+		&:hover {
+			color: $clr1;
+		}
+	}
+	a.active {
+		text-decoration: underline;
+		color: $clr2;
+	}
+}
+
+// .login-link{
+// 	margin-block-end: 0;
+// }
