@@ -19,6 +19,8 @@ export const toyService = {
     getToyLabels,
     getToyLabelCounts,
     getToyLabelsRoute,
+    getEmptyToyMsg,
+    addToyMsg
 }
 
 function query(filterBy = {}) {
@@ -48,8 +50,23 @@ function getToyLabelsRoute() {
     return httpService.get(BASE_URL + 'labels')
 }
 
-function getToyLabelCounts() {
-    return httpService.get(BASE_URL + 'labels/count')
+function getToyLabelCounts(toys) {
+    console.log(toys);
+    
+    // labels.map(label => toys.reduce((acc, toy) => {
+    //     if (toy.labels.includes(label) && toy.price > acc) acc = toy.price
+    //     return acc
+    const labelCounts = {}
+        toys.forEach(toy => {
+            console.log(toy.labels);
+            toy.labels.forEach(label => {
+                if (!labelCounts[label]) labelCounts[label] = { total: 0, inStock: 0 }
+                labelCounts[label].total++
+                if (toy.inStock) labelCounts[label].inStock++
+            })
+        })
+        return labelCounts
+    // return httpService.get(BASE_URL + 'labels/count')
 }
 
 function getEmptyToy() {
@@ -59,6 +76,16 @@ function getEmptyToy() {
         labels: _getRandomLabels(),
         createdAt: Date.now(),
         inStock: true,
+        msgs: []
+    }
+}
+
+function getEmptyToyMsg() {
+    return {
+        txt: '',
+        by: {
+            fullname: ''
+        }
     }
 }
 
@@ -89,3 +116,7 @@ function _getRandomLabels() {
     return randomLabels
 }
 
+async function addToyMsg(toyId, txt) {
+    const savedMsg = await httpService.post(`toy/${toyId}/msg`, { txt })
+    return savedMsg
+}

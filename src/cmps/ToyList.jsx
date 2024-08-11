@@ -15,10 +15,10 @@ export function ToyList({ toys, onRemoveToy }) {
             {toys.map(toy =>
                 <li className="toy-preview" key={toy._id}>
                     <ToyPreview toy={toy} />
-                    {shouldShowActionBtns(car) &&
+                    {shouldShowActionBtns(toy) &&
                         <div className="actions">
                             <div className="btn-action-group">
-                                {/* <button onClick={() => onUpdateCar(car)}>Edit</button> */}
+                                {/* <button onClick={() => onUpdatetoy(toy)}>Edit</button> */}
                                 <button className="btn-action" onClick={() => onRemoveToy(toy._id)}>X</button>
                             </div>
                         </div>

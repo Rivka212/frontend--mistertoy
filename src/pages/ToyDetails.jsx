@@ -23,7 +23,7 @@ export function ToyDetails() {
             })
     }
 
-    console.log(toy);
+    // console.log(toy.msgs,'toy.msgs');
 
     if (!toy) return <div>Loading...</div>
     return (
@@ -35,6 +35,18 @@ export function ToyDetails() {
             <h4 style={{ color: toy.inStock ? 'blue' : 'red' }}
             > {toy.inStock ? 'In stock' : 'Not in stock'}</h4>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi voluptas cumque tempore, aperiam sed dolorum rem! Nemo quidem, placeat perferendis tempora aspernatur sit, explicabo veritatis corrupti perspiciatis repellat, enim quibusdam!</p>
+            {toy?.msgs && toy.msgs !== null && toy.msgs.length > 0 ? (
+                <section>
+                    <h3>Toy Mssages:</h3>
+                    <ul className="toy-msgs">
+                        {toy.msgs.map((msg, index) =>
+                            <li key={index}>
+                                <h4>{msg.txt}</h4>
+                            </li>)}
+                    </ul></section>) : (
+                <p>No messages available.</p>
+            )}
+            <button><Link to={`/toy/${toy._id}/msg`}>Add Toy Msg</Link></button>
             <button><Link to={`/toy/edit/${toy._id}`}>Edit</Link></button>
             <button><Link to={`/toy`}>Back</Link></button>
             <p>

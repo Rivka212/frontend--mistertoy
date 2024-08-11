@@ -35,7 +35,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
             <form >
                 <div className="form">
                     <TextField 
-                        id="txt"
+                        id="name"
                         label="Search"
                         variant="outlined"
                         name="txt"

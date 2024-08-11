@@ -10,6 +10,8 @@ export const UPDATE_TOY = 'UPDATE_TOY'
 export const SET_FILTER_BY = 'SET_FILTER_BY'
 export const SET_IS_LOADING = 'SET_IS_LOADING'
 
+export const ADD_TOY_MSG = 'ADD_TOY_MSG'
+
 // export const SET_IS_LOADING_CHART = 'SET_IS_LOADING'
 
 
@@ -40,6 +42,8 @@ export function toyReducer(state = initialState, action = {}) {
                 ...state,
                 filterBy: { ...state.filterBy, ...action.filterBy }
             }
+        case ADD_TOY_MSG:
+            return { ...state, toy: { ...state.toy, msgs: [...state.toy.msgs || [], action.msg] } }
 
         case SET_IS_LOADING:
             return { ...state, isLoading: action.isLoading }

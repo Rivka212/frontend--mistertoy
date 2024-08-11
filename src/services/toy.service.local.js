@@ -77,6 +77,7 @@ function getEmptyToy() {
         labels: [],
         createdAt: Date.now(),
         inStock: false,
+        msgs: [],
     }
 }
 
@@ -121,7 +122,8 @@ function _createToy(name, price, labels = [], createdAt, inStock) {
         price,
         labels,
         createdAt,
-        inStock
+        inStock,
+        msgs: []
     }
 }
 
@@ -139,4 +141,5 @@ function _saveToys(prop) {
 //     labels: ['Doll', 'Battery Powered', 'Baby'],
 //     createdAt: 1631031801011,
 //     inStock: true,
+// msgs: []
 // }
