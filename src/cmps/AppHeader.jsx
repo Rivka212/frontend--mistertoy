@@ -1,5 +1,5 @@
 
-import {Link, NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useNavigate } from 'react-router'
 
 import { useSelector } from 'react-redux'
@@ -31,13 +31,13 @@ export function AppHeader() {
                     <NavLink to="/dashboard" >Dashboard</NavLink>
                     <NavLink to="/toy" >Toys</NavLink>
                     {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
-                   
+
                     {!user && <NavLink to="login" className="login-link">Login</NavLink>}
 
                     {user && (
                         <div className="user-info">
                             <Link to={`user/${user._id}`}>
-                               {user.fullname}
+                                {user.fullname}
                             </Link>
                             <button onClick={onLogout}>logout</button>
                         </div>

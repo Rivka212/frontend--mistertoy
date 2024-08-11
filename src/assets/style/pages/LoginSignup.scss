@@ -39,6 +39,21 @@
     }
 }
 
+.user-log{
+	button{
+		width: 130px;
+		height: 35px;
+		margin-left: 60px;
+		// background-color: $clr2bg;
+		background-color: rgb(232, 59, 25);
+		&:hover {
+			background-color:$clr3bg-light;
+		}
+
+	}
+}
+
+
 .login-page nav {
 	display: flex;
 	align-items: center;
@@ -53,6 +68,7 @@
 
 		&:hover {
 			color: $clr1;
+			background-color:$clr3bg-light;
 		}
 	}
 	a.active {

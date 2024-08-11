@@ -12,7 +12,7 @@ export const userService = {
     logout,
     signup,
     getById,
-    // query,
+    query,
     getUsers,
     getEmptyCredentials,
     save,
@@ -20,12 +20,12 @@ export const userService = {
 }
 
 
-// function query(filterBy = {}) {
-//     return httpService.get(BASE_URL, filterBy)
-// }
+function query(filterBy = {}) {
+    return httpService.get(BASE_URL, filterBy)
+}
 
 function getUsers() {
-	return httpService.get(BASE_URL)
+    return httpService.get(BASE_URL)
 }
 
 function getById(userId) {
@@ -42,13 +42,30 @@ export function save(user) {
 }
 
 async function login(userCred) {
-    const user = await httpService.post('auth/login', userCred)
-    if (user) return _saveLocalUser(user)
+    console.log(userCred);
+    try {
+        const user = await httpService.post('auth/login', userCred)
+        try {
+            return _saveLocalUser(user)
+        } catch (error) {
+            throw new Error('there was a problem')
+        }
+    } catch (error) {
+        throw new Error('there was a problem')
+    }
+
+    // const user = await httpService.post('auth/login', credentials)
+    // if (user) return _saveLocalUser(user)
 }
 
 async function signup(userCred) {
-    const user = await httpService.post('auth/signup', userCred)
-    return _saveLocalUser(user)
+    console.log(userCred);
+    try {
+        const newUser = await httpService.post('auth/signup', userCred)
+        return _saveLocalUser(newUser)
+    } catch (error) {
+        throw new Error('there was a problem signing up')
+    }
 }
 
 
@@ -72,7 +89,6 @@ function getEmptyCredentials() {
         fullname: '',
         username: '',
         password: '',
-        isAdmin: false,
     }
 }
 
