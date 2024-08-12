@@ -76,7 +76,8 @@ function getEmptyToy() {
         labels: _getRandomLabels(),
         createdAt: Date.now(),
         inStock: true,
-        msgs: []
+        msgs: [],
+        reviews:[]
     }
 }
 
