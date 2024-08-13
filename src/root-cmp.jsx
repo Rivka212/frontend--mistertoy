@@ -10,6 +10,7 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyMsgAdd } from './pages/ToyMsgAdd.jsx'
+import { ReviewExplore } from './pages/ReviewExplore.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { store } from './store/store.js'
 import { Provider } from 'react-redux'
@@ -38,6 +39,7 @@ export function App() {
                             <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
                             <Route element={<ToyDetails />} path="/toy/:toyId" />
                             <Route element={<ToyMsgAdd />} path="/toy/:toyId/msg" />
+                            <Route element={<ReviewExplore/>} path="/review" />
                             <Route element={<AdminIndex />} path="admin"  />
                             <Route element={<LoginSignup />} path="login" >
                                 {/* <Route index element={<Login />} />

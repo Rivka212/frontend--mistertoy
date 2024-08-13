@@ -1,12 +1,13 @@
 import { reviewService } from '../../services/review.service.js'
-import { SET_REVIEWS, ADD_REVIEW, SET_IS_LOADING, SET_REVIEW} from '../reducers/review.reducer.js'
+import { SET_REVIEWS, ADD_REVIEW, SET_FILTER_BY } from '../reducers/review.reducer.js'
+import { SET_IS_LOADING } from '../reducers/system.reducer.js'
 import { store } from '../store.js'
 
 export async function loadReviews() {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     try {
         const reviews = await reviewService.query()
-                // console.log('reviews:', reviews)
+        // console.log('reviews:', reviews)
         store.dispatch({ type: SET_REVIEWS, reviews })
         return reviews
     } catch (err) {
@@ -28,6 +29,10 @@ export async function addReview(review) {
         console.log('ReviewActions: err in addReview', err)
         throw err
     }
+}
+
+export function setFilterBy(filterBy) {
+    store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
 
 // export function saveReview(Review) {
