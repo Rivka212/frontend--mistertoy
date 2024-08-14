@@ -34,42 +34,41 @@ export function ToyEdit() {
     }, [])
 
 
-    function loadToy() {
-        toyService.getById(toyId)
-            .then(toy => setToyToEdit(toy))
-            .catch(err => {
-                console.log('Had issues in toy edit', err)
-                navigate('/toy')
-            })
+    async function loadToy() {
+        try {
+            const toy = toyService.getById(toyId)
+            return setToyToEdit(toy)
+        } catch (err) {
+            console.log('Had issues in toy edit', err)
+            navigate('/toy')
+        }
     }
 
-    function loadToyLabels() {
-        return toyService.getToyLabelsRoute()
-            .then(labels => {
-                setLabels(labels)
-            })
-            .catch(err => {
-                console.log('Had issued in toy edit:', err)
-                navigate('/toy')
-                showErrorMsg('Toy not found!')
-            })
+    async function loadToyLabels() {
+        try {
+            const labels = toyService.getToyLabels()
+            return setLabels(labels)
+        } catch (err) {
+            console.log('Had issued in toy edit:', err)
+            navigate('/toy')
+            showErrorMsg('Toy not found!')
+        }
     }
     console.log(labels)
 
-    function onSaveToy(toyToEdit, { setSubmitting }) {
-        if (!toyToEdit.price) toyToEdit.price = 100
-        saveToy(toyToEdit)
-            .then(() => {
-                showSuccessMsg('toy Saved!')
-                navigate('/toy')
-            })
-            .catch(err => {
-                console.log('Had issues in toy details', err)
-                showErrorMsg('Had issues in toy details')
-            })
-            .finally(() => {
-                setSubmitting(false)
-            })
+    async function onSaveToy(toyToEdit, { setSubmitting }) {
+        try {
+            if (!toyToEdit.price) toyToEdit.price = 100
+            await saveToy(toyToEdit)
+            showSuccessMsg('toy Saved!')
+            navigate('/toy')
+        } catch (err) {
+            console.log('Had issues in toy details', err)
+            showErrorMsg('Had issues in toy details')
+        } finally {
+            setSubmitting(false)
+            // toyToEdit = ''
+        }
     }
 
     const toySchema = Yup.object().shape({

@@ -103,7 +103,9 @@ function getDefaultFilter() {
 
 
 function getToyLabels() {
-    return [...labels]
+    // return [...labels]
+        return labels
+
 }
 
 

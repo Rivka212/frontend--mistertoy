@@ -20,22 +20,22 @@ export function ToyIndex() {
         loadToys()
             // .then(() => toyService.getToyLabelsRoute())
             // .then(labels => setToyLabels(labels))
-            .catch(err => {
-                showErrorMsg('Cannot load toys!')
-            })
+            // .catch(err => {
+            //     showErrorMsg('Cannot load toys!')
+            // })
     }, [filterBy])
 
     function onSetFilter(filterBy) {
         setFilterBy(filterBy)
     }
 
-    function onRemoveToy(toyId) {
-        removeToy(toyId)
-            .then(() => showSuccessMsg('Toy removed')
-            )
-            .catch(err => {
-                showErrorMsg('Cannot remove toy')
-            })
+  async function onRemoveToy(toyId) {
+        try {
+            await removeToy(toyId)
+            showSuccessMsg('Toy removed')
+        } catch (err) {
+            showErrorMsg('Cannot remove toy')
+        }
     }
 
 

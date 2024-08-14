@@ -1,5 +1,5 @@
 import { toyService } from '../../services/toy.service.js'
-import { SET_FILTER_BY, ADD_TOY, UPDATE_TOY, REMOVE_TOY, SET_IS_LOADING, SET_TOYS, ADD_TOY_MSG } from '../reducers/toy.reducer.js'
+import { SET_FILTER_BY, ADD_TOY, UPDATE_TOY, REMOVE_TOY, SET_IS_LOADING, SET_TOYS, SET_TOY, ADD_TOY_MSG } from '../reducers/toy.reducer.js'
 import { store } from '../store.js'
 
 export async function loadToys() {
@@ -14,6 +14,16 @@ export async function loadToys() {
         throw err
     } finally {
         store.dispatch({ type: SET_IS_LOADING, isLoading: false })
+    }
+}
+
+export async function loadToy(toyId) {
+    try {
+        const toy = await toyService.getById(toyId)
+        store.dispatch({ type: SET_TOY, toy })
+    } catch (err) {
+        console.log('Cannot load toy', err)
+        throw err
     }
 }
 

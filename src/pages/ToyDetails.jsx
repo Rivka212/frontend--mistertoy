@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { toyService } from "../services/toy.service.js"
 import { Link, useParams, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
+import { loadToy } from "../store/actions/toy.actions.js"
 
 
 export function ToyDetails() {
@@ -13,23 +14,23 @@ export function ToyDetails() {
 
     const navigate = useNavigate()
 
+    // useEffect(() => {
+    //     loadToy(toyId)
+    //   }, [toyId])
+
     useEffect(() => {
-        if (toyId) loadToy()
+        if (toyId) onLoadToy()
     }, [toyId])
 
-   async function loadToy() {
+   async function onLoadToy() {
         try {
-            const toy = await toyService.getById(toyId)
-            console.log(toy);
-            
+            const toy = await loadToy(toyId)
             return setToy(toy)
         } catch (err) {
             console.log('Had issues in toy details', err)
             navigate('/toy')
         }
     }
-
-
 
 // console.log(toy.msgs,'toy.msgs');
 
