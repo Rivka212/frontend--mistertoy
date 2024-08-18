@@ -2,8 +2,8 @@ import { useEffect } from "react"
 import { loadReviews } from "../store/actions/review.actions"
 import { useSelector } from "react-redux"
 
-import { ReviewPreview } from '../cmps/ReviewPreview.jsx'
 import { ReviewFilter } from '../cmps/ReviewFilter.jsx'
+import { ReviewList } from "../cmps/ReviewList.jsx"
 
 
 export function ReviewExplore() {
@@ -11,6 +11,8 @@ export function ReviewExplore() {
     const isLoading = useSelector(storeState => storeState.systemModule.isLoading)
     const filterBy = useSelector(storeState => storeState.reviewModule.filterBy)
 
+    console.log(reviews);
+    
     useEffect(() => {
         loadReviews()
             // .catch(err => {
@@ -28,7 +30,7 @@ export function ReviewExplore() {
             <section>
                 <ReviewFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                 {!isLoading ?
-                    <ReviewPreview reviews={reviews}
+                    <ReviewList reviews={reviews}
                     /> : <div>Loading...</div>
                 }
             </section>

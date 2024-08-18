@@ -35,7 +35,7 @@ export function ReviewFilter({ filterBy, onSetFilter }) {
 
     return (
         <section className="review-filter full main-layout">
-            <h2>Reviews Filter</h2>
+            <h3>Reviews Filter</h3>
             <form >
                 <div className="form">
                     <TextField

@@ -30,6 +30,8 @@ export function AppHeader() {
                     <NavLink to="/about" >About</NavLink>
                     <NavLink to="/dashboard" >Dashboard</NavLink>
                     <NavLink to="/toy" >Toys</NavLink>
+                    <NavLink to="/review" >Reviews</NavLink>
+
                     {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
 
                     {!user && <NavLink to="login" className="login-link">Login</NavLink>}
