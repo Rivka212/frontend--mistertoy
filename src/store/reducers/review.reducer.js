@@ -11,6 +11,8 @@ export function reviewReducer(state = initialState, action = {}) {
     switch (action.type) {
 
         case SET_REVIEWS:
+            console.log('SET_REVIEWS', action.reviews);
+            
             return { ...state, reviews: action.reviews }
         case ADD_REVIEW:
             return { ...state, reviews: [...state.reviews, action.review] }

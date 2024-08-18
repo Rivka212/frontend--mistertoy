@@ -36,7 +36,8 @@
     if (!user) return <div>Loading...</div>
     return (
         <section className="user-details">
-            <h1>User Name : {user.fullname}</h1>
+            <h2>User Details </h2>
+            <h2>{user.fullname}</h2>
             {/* <h3>Reviews : {user.reviews.join(', ')}</h3> */}
           
             {user?.msgs && user.msgs !== null && user.msgs.length > 0 ? (

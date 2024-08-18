@@ -5,12 +5,16 @@ export const reviewService = {
     query,
 }
 
+// function query(filterBy = {}) {
+//     var queryStr = !filterBy ? '' : `?name=${filterBy.txt}&sort=anaAref`
+//     return httpService.get(`review${queryStr}`)
+// }
+
 function query(filterBy = {}) {
-    var queryStr = !filterBy ? '' : `?name=${filterBy.txt}&sort=anaAref`
-    return httpService.get(`review${queryStr}`)
+    return httpService.get('review', filterBy)
 }
 
 async function add({ txt, userId }) {
-    return await httpService.post(`review`, { txt, userId })
+    return await httpService.post('review', { txt, userId })
 }
 

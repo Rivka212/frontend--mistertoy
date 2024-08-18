@@ -7,7 +7,7 @@ export async function loadReviews() {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
     try {
         const reviews = await reviewService.query()
-        // console.log('reviews:', reviews)
+        console.log('reviews:', reviews)
         store.dispatch({ type: SET_REVIEWS, reviews })
         return reviews
     } catch (err) {
